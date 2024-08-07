@@ -1,0 +1,43 @@
+@ClientSchedulerService_HostAddress = https://localhost:44311
+
+# Get slots for a provider
+GET {{ClientSchedulerService_HostAddress}}/clientscheduler?provider=provider
+Accept: application/json
+
+###
+# Add new provider slots
+
+PUT {{ClientSchedulerService_HostAddress}}/providerscheduler?provider=hyde
+Content-Type: application/json
+
+{
+  "fromDateTime": "2024-08-10T15:58:20.312Z",
+  "toDateTime": "2024-08-10T17:58:20.312Z"
+}
+
+###
+# Reserve a slot for a client
+
+PUT {{ClientSchedulerService_HostAddress}}/clientscheduler?provider=hyde
+Content-Type: application/json
+
+{
+  "slot": {
+    "timeSlot": "2024-08-08T16:00:00Z",
+    "provider": "hyde"
+  }
+}
+
+###
+# Confirm a slot for a client
+
+POST {{ClientSchedulerService_HostAddress}}/clientscheduler?provider=hyde
+Content-Type: application/json
+
+{
+  "slot": {
+    "timeSlot": "2024-08-08T16:00:00Z",
+    "provider": "hyde"
+  }
+}
+
